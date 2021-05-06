@@ -3,7 +3,7 @@ import sys, random, multiprocessing
 
 HOST = "127.0.0.1"
 PORT = 1060
-NUMJOBS = 6
+NUMJOBS = 4
 
 def recvall(sock, length):
     data = b''
@@ -17,17 +17,24 @@ def recvall(sock, length):
     return data
 
 def worker(address, i, data):
+
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect(address)
-
+    print("duaduaduaduaduadua")
     for ii in data:
+        print("1")
         ii = ii.strip()
         len_msg = b"%03d" % (len(ii),) 
         msg = len_msg + bytes(ii, encoding="ascii")
+        print("2")
         sock.sendall(msg)
+        print("3")
         len_msg = recvall(sock, 3)
+        print("4")
         message = recvall(sock, int(len_msg))
+        print("5")
         message = str(message, encoding="ascii")
+        print("6")
         print(message)
     sock.close()
 
@@ -35,14 +42,15 @@ if __name__ == '__main__':
     f = open("input.txt")
     data = f.readlines()
     f.close()
-
+    i=1
     address = (HOST, PORT)
     jobs = []
     for i in range(NUMJOBS):
         p = multiprocessing.Process(target=worker, args=(address, i, data))
         jobs.append(p)
+    # worker(address, i, data)
     print("JOBS:", len(jobs))
-
+    print("satu")
     for p in jobs:
         p.start()
 
