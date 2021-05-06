@@ -1,4 +1,4 @@
-import argparse, random, socket, zen_utils
+import socket
 import sys, random, multiprocessing
 
 HOST = "127.0.0.1"
@@ -22,20 +22,20 @@ def worker(address, i, data):
     sock.connect(address)
     print("duaduaduaduaduadua")
     for ii in data:
-        print("1")
+        # print("1")
         ii = ii.strip()
         len_msg = b"%03d" % (len(ii),) 
         msg = len_msg + bytes(ii, encoding="ascii")
-        print("2")
+        # print("2")
         sock.sendall(msg)
-        print("3")
+        # print("3")
         len_msg = recvall(sock, 3)
-        print("4")
+        # print("4")
         message = recvall(sock, int(len_msg))
-        print("5")
+        # print("5")
         message = str(message, encoding="ascii")
-        print("6")
-        print(message)
+        # print("6")
+    print(message)
     sock.close()
 
 if __name__ == '__main__':

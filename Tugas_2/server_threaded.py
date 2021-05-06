@@ -1,5 +1,5 @@
 from threading import Thread
-import argparse, socket, time
+import argparse, socket
 import sys
 
 value = 0
@@ -14,14 +14,14 @@ def recvall(sock, length):
     return data
 
 def my_handle_request(sock):
-    print("0")
+    # print("0")
     global value
-    print("1")
+    # print("1")
     len_msg = recvall(sock, 3)
-    print("2")
+    # print("2")
     message = recvall(sock, int(len_msg))
     message = str(message, encoding="ascii")
-    print("3")
+    # print("3")
     ii = message.split()
     if ii[0] =="ADD":
         value += int(ii[1])
@@ -40,13 +40,13 @@ def my_threads(listener):
     while True: 
         sock, address, = listener.accept()
         print('Accepted connection from {}'.format(address))
-        print("masok")
-        my_handle_request(sock)
+        # print("masok")
+        # my_handle_request(sock)
         try:
-            print("masok")
+            # print("masok")
             while True:
                 #print("true")
-                print("masok")
+                # print("masok")
                 my_handle_request(sock)
         except EOFError:
             print('Client socket to {} has closed'.format(address))
@@ -54,12 +54,11 @@ def my_threads(listener):
             print('Client {} error: {}'.format(address, e))
         finally:
             print("anu")
-            global value
-            value = 0
             sock.close()
 
 def start_threads(listener, workers=4):
     t = (listener,)
+    print(t)
     print("masuk thread")
     for i in range(workers):
         Thread(target = my_threads, args=t).start()
@@ -72,6 +71,7 @@ def create_srv_socket(address):
     listener.bind(address)
     listener.listen(64)
     print('Listening at {}'.format(address))
+    print (listener)
     return listener
 
 def parse_command_line(description):
