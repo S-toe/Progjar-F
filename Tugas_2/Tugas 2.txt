@@ -1,0 +1,29 @@
+Tugas 2. PEMROGRAMAN JARINGAN
+----------------------------
+
+THREADED SERVER
+
+input.txt:
+	ADD 10
+	ADD 20
+	DEC 10
+	DEC 30
+	(10rb baris)
+
+randomloh.py:
+	merandom ADD/DEC [n] sebanyak 10000 baris
+
+sequential.py:
+	menghitung manual, nilainya harus sama setelah di paralel
+
+klien_paralel.py:
+	program klien dengan proses
+
+ws_threaded.py (tidak diberikan)..
+	program server dengan thread
+
+
+Tugas:
+- membuat server multi thread (lihat kode ch07/srv_threaded.py)...
+- mampu menambah dan mengurangi
+- total nilai mestinya sama dengan program sequensial
