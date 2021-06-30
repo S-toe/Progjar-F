@@ -10,7 +10,7 @@ class Sqlite():
     self.connection: Connection = connect(database)         
     self.cursor: Cursor = self.connection.cursor()          
 
-  def run_query(self, query: str) -> list:                  # run query
+  def run_query(self, query: str):                  # run query
     self.cursor.execute(query)
 
     return self.cursor.fetchall()
@@ -20,10 +20,10 @@ class SqliteService(rpyc.Service):
   def __init__(self, database: str):                        # inisiasi
     self.sqlite_service = Sqlite(database)
 
-  def exposed_rawquery(self, query: str) -> list:           # exposed rawquery   
+  def exposed_rawquery(self, query: str):           # exposed rawquery   
     return self.sqlite_service.run_query(query)
 
-  def exposed_tabquery(self, query: str) -> str:            # exposed tabquery
+  def exposed_tabquery(self, query: str):            # exposed tabquery
     result = self.sqlite_service.run_query(query)
 
     table = BeautifulTable()                                # using BeautifulTable
@@ -38,7 +38,7 @@ class SqliteService(rpyc.Service):
 
     return table
 
-  def exposed_quit(self) -> None:
+  def exposed_quit(self):
     exit()
 
 
